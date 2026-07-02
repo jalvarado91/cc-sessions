@@ -1,0 +1,11 @@
+{
+  "name": "cc-sessions",
+  "description": "Reference, search, and extract from past Claude Code sessions — Amp-style thread referencing, fully local.",
+  "version": "0.2.0",
+  "author": {
+    "name": "Juan Alvarado",
+    "email": "jalvarado91@gmail.com"
+  },
+  "license": "MIT",
+  "keywords": ["sessions", "history", "search", "threads", "memory"]
+}

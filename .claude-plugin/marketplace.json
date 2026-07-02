@@ -1,0 +1,15 @@
+{
+  "name": "cc-sessions",
+  "description": "Marketplace for the cc-sessions plugin: Amp-style referencing of past Claude Code sessions.",
+  "owner": {
+    "name": "Juan Alvarado",
+    "email": "jalvarado91@gmail.com"
+  },
+  "plugins": [
+    {
+      "name": "cc-sessions",
+      "source": "./",
+      "description": "Reference, search, and extract from past Claude Code sessions — Amp-style thread referencing, fully local."
+    }
+  ]
+}
