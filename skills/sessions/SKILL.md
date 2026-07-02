@@ -24,7 +24,7 @@ Past Claude Code sessions are local JSONL transcripts. This skill makes them fir
 **IMPORTANT:** raw `--json` output embeds full transcripts (`full_text`) — always pipe through this projection, never dump it raw:
 
 ```bash
-ccsearch search "QUERY" --no-tui --json --days 90 --limit 10 | jq '[.[] | {
+ccsearch search "QUERY" --no-tui --json --limit 10 | jq '[.[] | {
   id: .session_id, score,
   project: .session.project_path,
   modified: .session.modified_at,
@@ -34,10 +34,11 @@ ccsearch search "QUERY" --no-tui --json --days 90 --limit 10 | jq '[.[] | {
 }]'
 ```
 
-- `--days` defaults to **30** — widen it (`--days 365`) when the user says "a while ago" or the search comes up empty.
+- Search always covers **full history**: `--days` and `--project` are accepted but ignored by `search` (they only work on `ccsearch list`) — do not pass them or retry with "wider" values. Ranking already favors recent sessions via a recency boost, so recent work surfaces first anyway.
+- An empty result therefore means *no matches anywhere, ever* — reformulate the query (different words, `--exact` vs `--semantic`) rather than fiddling with flags.
 - `--exact` for literal strings (error messages, function names); `--semantic` for concept-only matching; default hybrid is right most of the time.
-- `--project /path/to/repo` to scope to one project.
-- Recency browsing without a query: `ccsearch list --days 7 --json | jq '…same projection idea…'`.
+- To scope to one project, filter the projection: append `| map(select(.project | test("myrepo")))`.
+- Recency browsing without a query: `ccsearch list --days 7 --json | jq '…same projection idea…'` (`--days`/`--project` genuinely filter here).
 - Results with `agent-…` ids are subagent transcripts; they're often the strongest content match but map them to their parent session before presenting.
 
 ## Confirming the match
